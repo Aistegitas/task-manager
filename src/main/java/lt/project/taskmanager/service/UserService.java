@@ -17,17 +17,12 @@ public class UserService {
         userRepository.saveAndFlush(user);
     };
 
-
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     public Optional<User> getUserById(int id) {
         return userRepository.findById(id);
-    }
-
-    public User saveUser(User user) {
-        return userRepository.saveAndFlush(user);
     }
 
     public void addTestUsers() {
@@ -61,7 +56,7 @@ public class UserService {
 
         // User 5
         User user5 = new User();
-        user5.setFirstName("Evan");
+        user5.setFirstName("Craig");
         user5.setLastName("Evans");
         user5.setEmail("evan@example.com");
         addUser(user5);

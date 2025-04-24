@@ -1,6 +1,5 @@
 package lt.project.taskmanager.service;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import lt.project.taskmanager.entity.enums.TaskPriority;
 import lt.project.taskmanager.entity.enums.TaskStatus;
 import lt.project.taskmanager.entity.enums.TaskType;
 import lt.project.taskmanager.repository.TaskRepository;
-import lt.project.taskmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,9 +21,7 @@ import java.util.List;
 public class TaskService {
 
     private final UserService userService;
-    private final SubtaskService subtaskService;
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
 
     public List<Task> getAllTasks() {
         log.debug("Fetching all tasks");
@@ -61,48 +57,7 @@ public class TaskService {
         return taskRepository.saveAndFlush(task);
     }
 
-    public Task patchTaskById(Integer id, Task taskFromRequest) {
-        Task taskFromDb = getTaskByIdOrThrow(id);
-        User userFromRequest = taskFromRequest.getUser();
-
-        if (StringUtils.isNotBlank(taskFromRequest.getTitle()) &&
-                !taskFromRequest.getTitle().equals(taskFromDb.getTitle())) {
-            taskFromDb.setTitle(taskFromRequest.getTitle());
-        }
-        if (StringUtils.isNotBlank(taskFromRequest.getDescription()) &&
-                !taskFromRequest.getDescription().equals(taskFromDb.getDescription())) {
-            taskFromDb.setDescription(taskFromRequest.getDescription());
-        }
-        if (taskFromRequest.getType() != null &&
-                !taskFromRequest.getType().equals(taskFromDb.getType())) {
-            taskFromDb.setType(taskFromRequest.getType());
-        }
-        if (taskFromRequest.getSprint() != null &&
-                !taskFromRequest.getSprint().equals(taskFromDb.getSprint())) {
-            taskFromDb.setSprint(taskFromRequest.getSprint());
-        }
-        if (taskFromRequest.getStatus() != null &&
-                !taskFromRequest.getStatus().equals(taskFromDb.getStatus())) {
-            taskFromDb.setStatus(taskFromRequest.getStatus());
-        }
-        if (taskFromRequest.getPriority() != null &&
-                !taskFromRequest.getPriority().equals(taskFromDb.getPriority())) {
-            taskFromDb.setPriority(taskFromRequest.getPriority());
-        }
-        if (userFromRequest.getId() != null &&
-                !userFromRequest.getId().equals(taskFromDb.getUser().getId())) {
-
-            User existingUser = userRepository.findById(userFromRequest.getId())
-                    .orElseThrow(() -> new EntityNotFoundException("User not found"));
-
-            taskFromDb.setUser(existingUser);
-        }
-
-        return saveTask(taskFromDb);
-    }
-
-
-    public void addTestTasks() {
+    public void addTestTasks() { //used initially to add test data
         userService.addTestUsers();
 
         List<User> users = userService.getAllUsers();
