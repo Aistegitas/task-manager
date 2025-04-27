@@ -131,6 +131,7 @@ Follow these steps to run the project on your local machine:
      ```
 
 8. **(Optional) Test with Postman**  
+
    Use [Postman](https://www.postman.com/) to test the API endpoints
 
 ---
