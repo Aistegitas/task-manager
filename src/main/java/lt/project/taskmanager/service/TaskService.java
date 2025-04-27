@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -55,6 +56,19 @@ public class TaskService {
 
     public Task saveTask(Task task) {
         return taskRepository.saveAndFlush(task);
+    }
+
+    public List<Task> filterTasks(String title, TaskType type, Integer sprint, TaskStatus status, TaskPriority priority, Integer userId) {
+        List<Task> allTasks = taskRepository.findAll();
+
+        return allTasks.stream()
+                .filter(task -> title == null || task.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .filter(task -> type == null || task.getType() == type)
+                .filter(task -> sprint == null || task.getSprint().equals(sprint))
+                .filter(task -> status == null || task.getStatus() == status)
+                .filter(task -> priority == null || task.getPriority() == priority)
+                .filter(task -> userId == null || task.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     public void addTestTasks() { //used initially to add test data

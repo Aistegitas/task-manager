@@ -12,35 +12,39 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/tasks",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "subtasks list",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/api/subtasks",
-					"protocol": "http",
-					"host": [
-						"localhost"
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"subtasks"
+					"query": [
+						{
+							"key": "status",
+							"value": "TODO",
+							"disabled": true
+						},
+						{
+							"key": "priority",
+							"value": "HIGH",
+							"disabled": true
+						},
+						{
+							"key": "sprint",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Database",
+							"disabled": true
+						},
+						{
+							"key": "userId",
+							"value": "1",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -52,14 +56,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/tasks/with-subtasks",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks/with-subtasks",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks",
 						"with-subtasks"
 					]
@@ -68,27 +69,41 @@
 			"response": []
 		},
 		{
-			"name": "get by id",
+			"name": "task by id",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/tasks/:id",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks/:id",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "10"
+							"value": "1"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subtasks list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/subtasks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"subtasks"
 					]
 				}
 			},
@@ -109,14 +124,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/tasks",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks"
 					]
 				}
@@ -130,7 +142,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \r\n   \r\n    \"title\": \"YAY-YAY\",\r\n    \"userId\": 1\r\n}",
+					"raw": "{\r\n    \r\n   \r\n    \"title\": \"CHANGED\",\r\n    \"userId\": 1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -138,21 +150,18 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/tasks/:id",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks/:id",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "13"
+							"value": "15"
 						}
 					]
 				}
@@ -165,26 +174,52 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/tasks/:id",
-					"protocol": "http",
+					"raw": "{{baseUrl}}/tasks/:id",
 					"host": [
-						"localhost"
+						"{{baseUrl}}"
 					],
-					"port": "8080",
 					"path": [
-						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "10"
+							"value": "16"
 						}
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api",
+			"type": "default"
 		}
 	]
 }
