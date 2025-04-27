@@ -98,15 +98,16 @@ Follow these steps to run the project on your local machine:
    ```
 
 2. **Open the project**  
-   Open the project folder in your favorite IDE (such as IntelliJ IDEA or Eclipse).
+
+   Open the project folder in your IDE (such as IntelliJ IDEA ).
 
 3. **Check your environment**  
    - Make sure you have **Java 17** (or higher) installed.
    - Make sure you have **Maven** installed.
 
 4. **Configure the Database**  
-   By default, the project uses an in-memory **H2 database**, so no setup is needed.  
-   If you want to connect to **MySQL** or another database, update `application.properties` accordingly.
+
+   If you want to connect to **MySQL** database, update `application.properties` accordingly.
 
 5. **Install project dependencies**
    ```bash
@@ -124,13 +125,13 @@ Follow these steps to run the project on your local machine:
    or in your IDE, simply run the `TaskManagerApplication` class.
 
 7. **Access the API**
-   - Base URL:  
+     
      ```
      http://localhost:8080/api/tasks
      ```
 
 8. **(Optional) Test with Postman**  
-   Use [Postman](https://www.postman.com/) to test the API endpoints!
+   Use [Postman](https://www.postman.com/) to test the API endpoints
 
 ---
 
