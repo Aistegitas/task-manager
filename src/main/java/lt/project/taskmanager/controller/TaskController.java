@@ -18,7 +18,6 @@ import lt.project.taskmanager.exception.ResourceNotFoundException;
 import lt.project.taskmanager.mapper.TaskMapper;
 import lt.project.taskmanager.service.TaskService;
 import lt.project.taskmanager.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,16 +32,6 @@ public class TaskController {
     private final TaskService taskService;
     private final UserService userService;
     private final TaskMapper taskMapper;
-
-
-//    @GetMapping
-//    public ResponseEntity<List<GetTaskResponse>> getAllTasks() {
-//        List<GetTaskResponse> tasks = taskService.getAllTasks()
-//                .stream()
-//                .map(taskMapper::toGetTaskResponseWithoutSubtasks)
-//                .collect(Collectors.toList());
-//        return ResponseEntity.ok(tasks);
-//    }
 
     @GetMapping
     @Operation(summary = "Get all tasks or filter by title, type, sprint, status, priority, userId")
