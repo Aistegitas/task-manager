@@ -66,19 +66,5 @@ public class TaskMapper {
                 subtask.getTask().getId()
         );
     }
-
-    public GetTaskResponse toGetTaskResponseWithoutSubtasks(Task task) {
-        return new GetTaskResponse(
-                task.getId(),
-                task.getTitle(),
-                task.getDescription(),
-                task.getType(),
-                task.getSprint(),
-                task.getStatus(),
-                task.getPriority(),
-                task.getUser().getId(),
-                List.of()
-        );
-    }
 }
 
