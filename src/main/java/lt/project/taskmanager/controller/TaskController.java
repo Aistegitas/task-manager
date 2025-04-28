@@ -64,13 +64,6 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/with-subtasks")
-    public List<GetTaskResponse> getAllTasksWithSubtasks() {
-        return taskService.getAllTasks().stream()
-                .map(taskMapper::toGetTaskResponse)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<GetTaskResponse> getTaskById(@PathVariable Integer id) {
         Task task = taskService.getTaskByIdOrThrow(id);
