@@ -6,82 +6,71 @@ A **Spring Boot** RESTful API for managing **Tasks** and **Subtasks**, including
 - Filtering tasks by different fields
 - Handling relationships between tasks and subtasks
 - Validation and error handling
-- Proper DTO mapping for clean responses
+- DTO mapping for clean responses
 
 ---
 
-## 📚 Features
-
-- **Task Management**  
-  Create, update (PATCH), delete, view single or multiple tasks.
-
-- **Subtask Management**  
-  List all subtasks or subtasks belonging to a specific task.
-
-- **Filtering**  
-  Filter tasks by:
-  - Title
-  - Type
-  - Sprint
-  - Status
-  - Priority
-  - User ID
-
-- **DTO Usage**  
-  Clean request and response models using DTOs and Lombok.
-
-- **Validation**  
-  Automatic request validation (e.g., `@NotBlank`, `@Positive`, `@NotNull`).
-
-- **Error Handling**  
-  Friendly and clear error messages for missing entities or bad requests.
-
----
-
-## 📦 Technologies Used
+# 📚 Technologies Used
 
 - Java 17+
-- Spring Boot 3
+- Spring Boot
 - Spring Web
 - Spring Data JPA
 - Hibernate
 - Lombok
-- MySQL
+- Jakarta Validation
+- OpenAPI (Swagger annotations)
 
 ---
 
-## 🏗️ Project Structure
+# 🚀 Features
 
-| Layer        | Purpose                                  |
-|--------------|------------------------------------------|
-| `entity`     | JPA Entities (Task, Subtask, User)        |
-| `dto`        | Data Transfer Objects                    |
-| `controller` | REST API endpoints (TaskController, SubtaskController) |
-| `service`    | Business logic (TaskService, SubtaskService) |
-| `mapper`     | Converts between Entities and DTOs       |
-| `repository` | Spring Data JPA Repositories             |
+## Tasks
+- Create a new task
+- Update an existing task
+- Delete a task
+- Get all tasks tasks with associated subtasks
+- Get task by ID
+- Filter tasks by title, type, sprint, status, priority, userId
+
+## Subtasks
+- Create a new subtask
+- Update a subtask 
+- Delete a subtask 
+- Get all subtasks
+
+## Additional
+- Exception handling with detailed error messages
+- Clean separation of entities and DTOs
+- Validation on incoming request payloads
 
 ---
 
-## 🚀 API Endpoints
+# 📌 API Endpoints
 
-### Task Endpoints
+## Task Endpoints
+- `GET /api/tasks` — Get all tasks or filter
+- `GET /api/tasks/{id}` — Get task by ID
+- `POST /api/tasks` — Create new task
+- `PATCH /api/tasks/{id}` — Update existing task
+- `DELETE /api/tasks/{id}` — Delete task
 
-| Method | URL | Description |
-|-------|-----|-------------|
-| `GET` | `/api/tasks` | Get all tasks (with/without subtasks) |
-| `GET` | `/api/tasks/{id}` | Get task by ID |
-| `POST` | `/api/tasks` | Create a new task |
-| `PATCH` | `/api/tasks/{id}` | Update a task partially |
-| `DELETE` | `/api/tasks/{id}` | Delete a task |
-| `GET` | `/api/tasks/filter` | Filter tasks by fields |
+## Subtask Endpoints
+- `GET /api/subtasks` — Get all subtasks
+- `POST /api/subtasks` — Create new subtask
+- `PATCH /api/subtasks/{id}` — Update subtask 
+- `DELETE /api/subtasks/{id}` — Delete subtask
 
-### Subtask Endpoints
+---
 
-| Method | URL | Description |
-|-------|-----|-------------|
-| `GET` | `/api/subtasks` | Get all subtasks |
-| `GET` | `/api/subtasks/task/{taskId}` | Get subtasks by task ID |
+# 🧩 Main Components
+
+- **Controllers** — Handle incoming API requests
+- **Services** — Business logic for tasks and subtasks
+- **Repositories** — Database access layer (Spring Data JPA)
+- **Mappers** — Convert between entities and DTOs
+- **DTOs** — Request and response models
+- **Exception Handling** — Global handling of errors
 
 ---
 
@@ -135,5 +124,6 @@ Follow these steps to run the project on your local machine:
    Use [Postman](https://www.postman.com/) to test the API endpoints
 
 ---
+
 
 
