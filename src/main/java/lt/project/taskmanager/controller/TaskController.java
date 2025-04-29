@@ -3,6 +3,7 @@ package lt.project.taskmanager.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class TaskController {
 
     @GetMapping
     @Operation(summary = "Get all tasks or filter by title, type, sprint, status, priority, userId")
+    @ApiResponse(responseCode = "201", description = "Task created successfully")
+    @ApiResponse(responseCode = "400", description = "Invalid request body")
     @Parameters({
             @Parameter(name = "title", description = "Filter by task title", required = false),
             @Parameter(name = "type", description = "Filter by task type", required = false),
@@ -64,12 +67,18 @@ public class TaskController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Get a task by ID", description = "Fetches a specific task by ID.")
+    @ApiResponse(responseCode = "200", description = "Task retrieved successfully")
+    @ApiResponse(responseCode = "404", description = "Task not found")
     @GetMapping("/{id}")
     public ResponseEntity<GetTaskResponse> getTaskById(@PathVariable Integer id) {
         Task task = taskService.getTaskByIdOrThrow(id);
         return ResponseEntity.ok(taskMapper.toGetTaskResponse(task));
     }
 
+    @Operation(summary = "Add a new task", description = "Creates a new task.")
+    @ApiResponse(responseCode = "201", description = "Task created successfully")
+    @ApiResponse(responseCode = "400", description = "Invalid request body")
     @PostMapping
     public ResponseEntity<GetTaskResponse> createTask(@RequestBody @Valid CreateTaskRequest request) {
         User user = userService.getUserById(request.getUserId())
@@ -81,6 +90,9 @@ public class TaskController {
         return ResponseEntity.ok(taskMapper.toGetTaskResponse(savedTask));
     }
 
+    @Operation(summary = "Update task", description = "Updates task parameters.")
+    @ApiResponse(responseCode = "200", description = "Task updated successfully")
+    @ApiResponse(responseCode = "404", description = "Task not found")
     @PatchMapping("/{id}")
     public ResponseEntity<GetTaskResponse> updateTask(@PathVariable Integer id,
                                                       @RequestBody UpdateTaskRequest request) {
@@ -97,6 +109,9 @@ public class TaskController {
         return ResponseEntity.ok(taskMapper.toGetTaskResponse(updatedTask));
     }
 
+    @Operation(summary = "Delete a task", description = "Deletes task by ID.")
+    @ApiResponse(responseCode = "204", description = "Task deleted successfully")
+    @ApiResponse(responseCode = "404", description = "Task not found")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Integer id) {
         taskService.deleteTaskById(id);
