@@ -8,7 +8,7 @@ import lt.project.taskmanager.dto.CreateSubtaskRequest;
 import lt.project.taskmanager.dto.SubtaskResponse;
 import lt.project.taskmanager.dto.UpdateSubtaskRequest;
 import lt.project.taskmanager.entity.Subtask;
-import lt.project.taskmanager.mapper.SubtaskMapper;
+import lt.project.taskmanager.converter.SubtaskConverter;
 import lt.project.taskmanager.service.SubtaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SubtaskController {
     private final SubtaskService subtaskService;
-    private final SubtaskMapper subtaskMapper;
+    private final SubtaskConverter subtaskConverter;
 
     @Operation(summary = "Get all subtasks")
     @ApiResponse(responseCode = "201", description = "Subtask created successfully")
@@ -31,7 +31,7 @@ public class SubtaskController {
     public ResponseEntity<List<SubtaskResponse>> getAllSubtasks() {
         List<SubtaskResponse> subtasks = subtaskService.getAllSubtasks()
                 .stream()
-                .map(subtaskMapper::toSubtaskResponse)
+                .map(subtaskConverter::toSubtaskResponse)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(subtasks);
@@ -44,7 +44,7 @@ public class SubtaskController {
     public ResponseEntity<SubtaskResponse> createSubtask(@RequestBody @Valid CreateSubtaskRequest request) {
         Subtask subtask = subtaskService.addSubtask(request);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(subtaskMapper.toSubtaskResponse(subtask));
+                .body(subtaskConverter.toSubtaskResponse(subtask));
     }
 
     @Operation(summary = "Update subtask", description = "Updates subtask parameters.")
@@ -54,7 +54,7 @@ public class SubtaskController {
     public ResponseEntity<SubtaskResponse> updateSubtask(@PathVariable Integer id,
                                                          @RequestBody @Valid UpdateSubtaskRequest request) {
         Subtask updatedSubtask = subtaskService.updateSubtask(id, request);
-        return ResponseEntity.ok(subtaskMapper.toSubtaskResponse(updatedSubtask));
+        return ResponseEntity.ok(subtaskConverter.toSubtaskResponse(updatedSubtask));
     }
 
     @Operation(summary = "Delete a subtask", description = "Deletes subtask by ID.")
@@ -72,6 +72,6 @@ public class SubtaskController {
     @GetMapping("/{id}")
     public ResponseEntity<SubtaskResponse> getSubtask(@PathVariable Integer id) {
         Subtask subtask = subtaskService.getSubtaskByIdOrThrow(id);
-        return ResponseEntity.ok(subtaskMapper.toSubtaskResponse(subtask));
+        return ResponseEntity.ok(subtaskConverter.toSubtaskResponse(subtask));
     }
 }

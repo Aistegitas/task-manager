@@ -16,7 +16,7 @@ import lt.project.taskmanager.entity.enums.TaskPriority;
 import lt.project.taskmanager.entity.enums.TaskStatus;
 import lt.project.taskmanager.entity.enums.TaskType;
 import lt.project.taskmanager.exception.ResourceNotFoundException;
-import lt.project.taskmanager.mapper.TaskMapper;
+import lt.project.taskmanager.converter.TaskConverter;
 import lt.project.taskmanager.service.TaskService;
 import lt.project.taskmanager.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +32,7 @@ public class TaskController {
 
     private final TaskService taskService;
     private final UserService userService;
-    private final TaskMapper taskMapper;
+    private final TaskConverter taskConverter;
 
     @GetMapping
     @Operation(summary = "Get all tasks or filter by title, type, sprint, status, priority, userId")
@@ -61,7 +61,7 @@ public class TaskController {
         }
 
         List<GetTaskResponse> response = tasks.stream()
-                .map(taskMapper::toGetTaskResponse)
+                .map(taskConverter::toGetTaskResponse)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
@@ -73,7 +73,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<GetTaskResponse> getTaskById(@PathVariable Integer id) {
         Task task = taskService.getTaskByIdOrThrow(id);
-        return ResponseEntity.ok(taskMapper.toGetTaskResponse(task));
+        return ResponseEntity.ok(taskConverter.toGetTaskResponse(task));
     }
 
     @Operation(summary = "Add a new task", description = "Creates a new task.")
@@ -84,10 +84,10 @@ public class TaskController {
         User user = userService.getUserById(request.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + request.getUserId() + " not found"));
 
-        Task task = taskMapper.toTask(request, user);
+        Task task = taskConverter.toTask(request, user);
         Task savedTask = taskService.addTask(task);
 
-        return ResponseEntity.ok(taskMapper.toGetTaskResponse(savedTask));
+        return ResponseEntity.ok(taskConverter.toGetTaskResponse(savedTask));
     }
 
     @Operation(summary = "Update task", description = "Updates task parameters.")
@@ -103,10 +103,10 @@ public class TaskController {
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + request.getUserId() + " not found"))
                 : existingTask.getUser();
 
-        Task updatedTask = taskMapper.toTask(existingTask, request, user);
+        Task updatedTask = taskConverter.toTask(existingTask, request, user);
         updatedTask = taskService.saveTask(updatedTask);
 
-        return ResponseEntity.ok(taskMapper.toGetTaskResponse(updatedTask));
+        return ResponseEntity.ok(taskConverter.toGetTaskResponse(updatedTask));
     }
 
     @Operation(summary = "Delete a task", description = "Deletes task by ID.")

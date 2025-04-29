@@ -1,4 +1,4 @@
-package lt.project.taskmanager.mapper;
+package lt.project.taskmanager.converter;
 
 import lt.project.taskmanager.dto.CreateTaskRequest;
 import lt.project.taskmanager.dto.GetTaskResponse;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class TaskMapper {
+public class TaskConverter {
     public Task toTask(CreateTaskRequest request, User user) {
         Task task = new Task();
         task.setTitle(request.getTitle());

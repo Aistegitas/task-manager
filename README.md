@@ -68,7 +68,7 @@ A **Spring Boot** RESTful API for managing **Tasks** and **Subtasks**, including
 - **Controllers** — Handle incoming API requests
 - **Services** — Business logic for tasks and subtasks
 - **Repositories** — Database access layer (Spring Data JPA)
-- **Mappers** — Convert between entities and DTOs
+- **Converters** — Convert between entities and DTOs
 - **DTOs** — Request and response models
 - **Exception Handling** — Global handling of errors
 
