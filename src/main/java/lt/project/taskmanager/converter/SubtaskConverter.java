@@ -1,11 +1,11 @@
-package lt.project.taskmanager.mapper;
+package lt.project.taskmanager.converter;
 
 import lt.project.taskmanager.dto.SubtaskResponse;
 import lt.project.taskmanager.entity.Subtask;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SubtaskMapper {
+public class SubtaskConverter {
     public SubtaskResponse toSubtaskResponse(Subtask subtask) {
         return new SubtaskResponse(
                 subtask.getId(),
