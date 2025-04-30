@@ -16,7 +16,6 @@ import java.util.List;
 public class SubtaskService {
 
     private final SubtaskRepository subtaskRepository;
-    private final TaskService taskService;
 
     public List<Subtask> getAllSubtasks() {
         log.debug("Fetching all subtasks");

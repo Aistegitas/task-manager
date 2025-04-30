@@ -24,11 +24,6 @@ public class TaskService {
     private final UserService userService;
     private final TaskRepository taskRepository;
 
-    public List<Task> getAllTasks() {
-        log.debug("Fetching all tasks");
-        return taskRepository.findAll();
-    }
-
     public Task getTaskByIdOrThrow(Integer id) {
         log.debug("Fetching task with id: {}", id);
         return taskRepository.findById(id)
