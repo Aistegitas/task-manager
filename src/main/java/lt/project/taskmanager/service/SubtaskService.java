@@ -3,10 +3,8 @@ package lt.project.taskmanager.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lt.project.taskmanager.dto.CreateSubtaskRequest;
 import lt.project.taskmanager.dto.UpdateSubtaskRequest;
 import lt.project.taskmanager.entity.Subtask;
-import lt.project.taskmanager.entity.Task;
 import lt.project.taskmanager.repository.SubtaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -34,18 +32,8 @@ public class SubtaskService {
                 });
     }
 
-    public Subtask addSubtask(CreateSubtaskRequest request) {
-        Task task = taskService.getTaskByIdOrThrow(request.getTaskId());
-
-        Subtask subtask = new Subtask();
-        subtask.setTitle(request.getTitle());
-        subtask.setDescription(request.getDescription());
-        subtask.setStatus(request.getStatus());
-        subtask.setTask(task);
-
-        Subtask savedSubtask = subtaskRepository.saveAndFlush(subtask);
-        log.info("Successfully added subtask with id: {}", savedSubtask.getId());
-        return savedSubtask;
+    public Subtask addSubtask(Subtask subtask) {
+        return subtaskRepository.saveAndFlush(subtask);
     }
 
     public Subtask updateSubtask(Integer id, UpdateSubtaskRequest request) {

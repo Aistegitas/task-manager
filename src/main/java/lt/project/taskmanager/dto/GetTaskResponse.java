@@ -19,6 +19,5 @@ public class GetTaskResponse {
     private TaskStatus status;
     private TaskPriority priority;
     private Integer userId;
-
     private List<SubtaskResponse> subtasks;
 }
